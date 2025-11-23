@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
+const API_URL = 'http://localhost:5000/api';
+
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -10,6 +12,7 @@ export default function ChatBot() {
   const [userName, setUserName] = useState("");
   const [loginStep, setLoginStep] = useState(null); // null, 'username', 'password'
   const [tempUsername, setTempUsername] = useState("");
+  const [authToken, setAuthToken] = useState(localStorage.getItem('authToken') || null);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -19,6 +22,73 @@ export default function ChatBot() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Check if user is already logged in on mount
+  useEffect(() => {
+    const verifyToken = async () => {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        try {
+          const response = await fetch(`${API_URL}/auth/verify`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          const data = await response.json();
+          if (data.success) {
+            setIsLoggedIn(true);
+            setUserName(data.data.user.username);
+            setAuthToken(token);
+          } else {
+            localStorage.removeItem('authToken');
+          }
+        } catch (error) {
+          console.error('Token verification failed:', error);
+          localStorage.removeItem('authToken');
+        }
+      }
+    };
+    verifyToken();
+  }, []);
+
+  const handleLogin = async (username, password) => {
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        localStorage.setItem('authToken', data.data.token);
+        setAuthToken(data.data.token);
+        setIsLoggedIn(true);
+        setUserName(data.data.user.username);
+        setLoginStep(null);
+        setMessages((prev) => [...prev, { 
+          text: `Welcome back, ${data.data.user.username}! 🎉 You're now logged in. How can I assist you today?`, 
+          isBot: true 
+        }]);
+      } else {
+        setLoginStep(null);
+        setMessages((prev) => [...prev, { 
+          text: `Login failed: ${data.message}. Please try again or type 'register' to create an account.`, 
+          isBot: true 
+        }]);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setLoginStep(null);
+      setMessages((prev) => [...prev, { 
+        text: 'Connection error. Please make sure the backend server is running and try again.', 
+        isBot: true 
+      }]);
+    }
+  };
 
   const handleSend = () => {
     if (inputValue.trim() === "") return;
@@ -42,16 +112,8 @@ export default function ChatBot() {
       }, 500);
       return;
     } else if (loginStep === 'password') {
-      // Simulate login (in real app, validate against backend)
-      setIsLoggedIn(true);
-      setUserName(tempUsername);
-      setLoginStep(null);
-      setTimeout(() => {
-        setMessages((prev) => [...prev, { 
-          text: `Welcome back, ${tempUsername}! 🎉 You're now logged in. How can I assist you today?`, 
-          isBot: true 
-        }]);
-      }, 500);
+      // Call backend API for login
+      handleLogin(tempUsername, currentInput);
       return;
     }
 
@@ -83,8 +145,10 @@ export default function ChatBot() {
       };
     } else if (input.includes("logout") || input.includes("sign out") || input.includes("log out")) {
       if (isLoggedIn) {
+        localStorage.removeItem('authToken');
         setIsLoggedIn(false);
         setUserName("");
+        setAuthToken(null);
         return "You've been successfully logged out. See you soon! 👋";
       }
       return "You're not currently logged in.";
