@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import video1 from "../assets/video1.mp4";
+import ChatBot from "./ChatBot";
 
 export default function Home() {
   return (
@@ -9,35 +9,18 @@ export default function Home() {
       
       <Navbar />
 
-      {/* Hero Section with Video Background */}
-      <section id="home" className="relative flex flex-col items-center justify-center text-center px-4 min-h-[600px] overflow-hidden">
-        {/* Video Background */}
-        <video 
-          className="fixed top-0 left-0 w-full h-screen object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src={video1} type="video/mp4" />
-        </video>
-        
-        {/* Overlay for better text readability */}
-        <div className="fixed top-0 left-0 w-full h-screen bg-black/40"></div>
-        
-        {/* Content */}
-        <div className="relative z-10 max-w-3xl">
-          <h2 className="text-5xl font-bold text-white drop-shadow-2xl">
-            Fresh & Beautiful Flower Bouquets
-          </h2>
-          <p className="mt-6 text-xl text-white drop-shadow-lg">
-            We bring happiness, love, and beauty into your special moments with handcrafted bouquets for any occasion.
-          </p>
+      {/* Hero Section */}
+      <section id="home" className="flex flex-col items-center text-center mt-16 px-4">
+        <h2 className="text-4xl font-bold text-pink-600">
+          Fresh & Beautiful Flower Bouquets
+        </h2>
+        <p className="mt-4 text-lg text-gray-700 max-w-xl">
+          We bring happiness, love, and beauty into your special moments with handcrafted bouquets for any occasion.
+        </p>
 
-          <button className="mt-8 bg-pink-600 text-white px-8 py-4 rounded-full text-lg hover:bg-pink-700 transition shadow-2xl">
-            Order Now
-          </button>
-        </div>
+        <button className="mt-6 bg-pink-600 text-white px-6 py-3 rounded-full text-lg hover:bg-pink-700 transition">
+          Order Now
+        </button>
       </section>
 
       {/* Featured Products */}
@@ -86,6 +69,8 @@ export default function Home() {
       </section>
 
       <Footer />
+
+      <ChatBot />
 
     </div>
   );
