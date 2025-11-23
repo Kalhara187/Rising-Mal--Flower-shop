@@ -40,4 +40,27 @@ Designed to support small businesses that rely on online orders and social media
 ---
 
 ## 📂 Project Structure
+rising-mal/
+│ package.json
+│ vite.config.js
+│ tailwind.config.js
+│ postcss.config.js
+│ README.md
+│ index.html
+└─ src/
+   │ App.jsx
+   │ index.css
+   │ main.jsx
+   ├─ pages/
+   │   Home.jsx
+   │   About.jsx
+   │   Products.jsx
+   │   Contact.jsx
+   ├─ components/
+   │   Navbar.jsx
+   │   Footer.jsx
+   └─ assets/
+       banner.jpg
+       rose.jpg
+
 
