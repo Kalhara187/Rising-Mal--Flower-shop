@@ -32,7 +32,8 @@ Designed to support small businesses that rely on online orders and social media
 
 | Home Page | Products Page |
 |-----------|--------------|
-| *(Add screenshot here)* | *(Add screenshot here)* |
+| *<img width="1835" height="891" alt="image" src="https://github.com/user-attachments/assets/656279b5-8ad3-423b-9765-f490d2e476cc" />
+* | *(Add screenshot here)* |
 
 ---
 
