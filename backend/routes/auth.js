@@ -46,7 +46,7 @@ router.post('/register', async (req, res) => {
 
     // Generate token
     const token = jwt.sign(
-      { id: newUser.id, username: newUser.username },
+      { id: newUser.id, username: newUser.username, role: newUser.role || 'user' },
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
@@ -59,7 +59,8 @@ router.post('/register', async (req, res) => {
         user: {
           id: newUser.id,
           username: newUser.username,
-          email: newUser.email
+          email: newUser.email,
+          role: newUser.role || 'user'
         }
       }
     });
@@ -109,7 +110,7 @@ router.post('/login', async (req, res) => {
 
     // Generate token
     const token = jwt.sign(
-      { id: user.id, username: user.username },
+      { id: user.id, username: user.username, role: user.role || 'user' },
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
@@ -122,7 +123,8 @@ router.post('/login', async (req, res) => {
         user: {
           id: user.id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          role: user.role || 'user'
         }
       }
     });
@@ -163,7 +165,8 @@ router.get('/verify', (req, res) => {
         user: {
           id: user.id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          role: user.role || 'user'
         }
       }
     });
