@@ -1,18 +1,25 @@
 import express from 'express';
 import { authenticateToken, isAdmin } from '../middleware/auth.js';
-import { users } from '../data/users.js';
+import User from '../models/User.js';
 
 const router = express.Router();
 
 // Get all users (Admin only)
-router.get('/users', authenticateToken, isAdmin, (req, res) => {
+router.get('/users', authenticateToken, isAdmin, async (req, res) => {
   try {
-    const usersWithoutPasswords = users.map(({ password, ...user }) => user);
+    const users = await User.find({}).select('-password');
+    
     res.json({
       success: true,
       data: {
-        users: usersWithoutPasswords,
-        count: usersWithoutPasswords.length
+        users: users.map(u => ({
+          id: u._id,
+          username: u.username,
+          email: u.email,
+          role: u.role,
+          createdAt: u.createdAt
+        })),
+        count: users.length
       }
     });
   } catch (error) {
@@ -25,11 +32,18 @@ router.get('/users', authenticateToken, isAdmin, (req, res) => {
 });
 
 // Get user statistics (Admin only)
-router.get('/stats', authenticateToken, isAdmin, (req, res) => {
+router.get('/stats', authenticateToken, isAdmin, async (req, res) => {
   try {
-    const totalUsers = users.length;
-    const adminUsers = users.filter(u => u.role === 'admin').length;
-    const regularUsers = users.filter(u => u.role === 'user').length;
+    const totalUsers = await User.countDocuments();
+    const adminUsers = await User.countDocuments({ role: 'admin' });
+    const regularUsers = await User.countDocuments({ role: 'user' });
+    
+    // Users registered today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const registeredToday = await User.countDocuments({
+      createdAt: { $gte: today }
+    });
 
     res.json({
       success: true,
@@ -37,7 +51,7 @@ router.get('/stats', authenticateToken, isAdmin, (req, res) => {
         totalUsers,
         adminUsers,
         regularUsers,
-        registeredToday: 0 // Implement based on actual dates
+        registeredToday
       }
     });
   } catch (error) {
@@ -50,12 +64,13 @@ router.get('/stats', authenticateToken, isAdmin, (req, res) => {
 });
 
 // Delete user (Admin only)
-router.delete('/users/:id', authenticateToken, isAdmin, (req, res) => {
+router.delete('/users/:id', authenticateToken, isAdmin, async (req, res) => {
   try {
-    const userId = parseInt(req.params.id);
-    const userIndex = users.findIndex(u => u.id === userId);
+    const userId = req.params.id;
+    
+    const user = await User.findById(userId);
 
-    if (userIndex === -1) {
+    if (!user) {
       return res.status(404).json({ 
         success: false, 
         message: 'User not found' 
@@ -63,20 +78,20 @@ router.delete('/users/:id', authenticateToken, isAdmin, (req, res) => {
     }
 
     // Prevent deleting yourself
-    if (users[userIndex].id === req.user.id) {
+    if (user._id.toString() === req.user.id) {
       return res.status(400).json({ 
         success: false, 
         message: 'Cannot delete your own account' 
       });
     }
 
-    const deletedUser = users.splice(userIndex, 1)[0];
+    await User.findByIdAndDelete(userId);
 
     res.json({
       success: true,
       message: 'User deleted successfully',
       data: {
-        username: deletedUser.username
+        username: user.username
       }
     });
   } catch (error) {
@@ -89,9 +104,9 @@ router.delete('/users/:id', authenticateToken, isAdmin, (req, res) => {
 });
 
 // Update user role (Admin only)
-router.patch('/users/:id/role', authenticateToken, isAdmin, (req, res) => {
+router.patch('/users/:id/role', authenticateToken, isAdmin, async (req, res) => {
   try {
-    const userId = parseInt(req.params.id);
+    const userId = req.params.id;
     const { role } = req.body;
 
     if (!role || !['user', 'admin'].includes(role)) {
@@ -101,7 +116,11 @@ router.patch('/users/:id/role', authenticateToken, isAdmin, (req, res) => {
       });
     }
 
-    const user = users.find(u => u.id === userId);
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { role },
+      { new: true }
+    ).select('-password');
 
     if (!user) {
       return res.status(404).json({ 
@@ -110,13 +129,11 @@ router.patch('/users/:id/role', authenticateToken, isAdmin, (req, res) => {
       });
     }
 
-    user.role = role;
-
     res.json({
       success: true,
       message: 'User role updated successfully',
       data: {
-        id: user.id,
+        id: user._id,
         username: user.username,
         role: user.role
       }

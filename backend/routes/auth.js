@@ -1,7 +1,6 @@
 import express from 'express';
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { users } from '../data/users.js';
+import User from '../models/User.js';
 
 const router = express.Router();
 
@@ -19,9 +18,9 @@ router.post('/register', async (req, res) => {
     }
 
     // Check if user already exists
-    const existingUser = users.find(
-      u => u.username === username || u.email === email
-    );
+    const existingUser = await User.findOne({
+      $or: [{ username }, { email }]
+    });
 
     if (existingUser) {
       return res.status(400).json({ 
@@ -30,23 +29,17 @@ router.post('/register', async (req, res) => {
       });
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create new user
-    const newUser = {
-      id: users.length + 1,
+    // Create new user (password will be hashed automatically by pre-save hook)
+    const newUser = await User.create({
       username,
       email,
-      password: hashedPassword,
-      createdAt: new Date().toISOString()
-    };
-
-    users.push(newUser);
+      password,
+      role: 'user'
+    });
 
     // Generate token
     const token = jwt.sign(
-      { id: newUser.id, username: newUser.username, role: newUser.role || 'user' },
+      { id: newUser._id, username: newUser.username, role: newUser.role },
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
@@ -57,15 +50,25 @@ router.post('/register', async (req, res) => {
       data: {
         token,
         user: {
-          id: newUser.id,
+          id: newUser._id,
           username: newUser.username,
           email: newUser.email,
-          role: newUser.role || 'user'
+          role: newUser.role
         }
       }
     });
   } catch (error) {
     console.error('Registration error:', error);
+    
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      const messages = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ 
+        success: false, 
+        message: messages.join(', ')
+      });
+    }
+
     res.status(500).json({ 
       success: false, 
       message: 'Server error during registration' 
@@ -87,9 +90,9 @@ router.post('/login', async (req, res) => {
     }
 
     // Find user (can login with username or email)
-    const user = users.find(
-      u => u.username === username || u.email === username
-    );
+    const user = await User.findOne({
+      $or: [{ username }, { email: username }]
+    });
 
     if (!user) {
       return res.status(401).json({ 
@@ -98,8 +101,8 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    // Check password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    // Check password using the model method
+    const isPasswordValid = await user.comparePassword(password);
 
     if (!isPasswordValid) {
       return res.status(401).json({ 
@@ -110,7 +113,7 @@ router.post('/login', async (req, res) => {
 
     // Generate token
     const token = jwt.sign(
-      { id: user.id, username: user.username, role: user.role || 'user' },
+      { id: user._id, username: user.username, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
@@ -121,10 +124,10 @@ router.post('/login', async (req, res) => {
       data: {
         token,
         user: {
-          id: user.id,
+          id: user._id,
           username: user.username,
           email: user.email,
-          role: user.role || 'user'
+          role: user.role
         }
       }
     });
@@ -138,7 +141,7 @@ router.post('/login', async (req, res) => {
 });
 
 // Verify token endpoint
-router.get('/verify', (req, res) => {
+router.get('/verify', async (req, res) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
 
@@ -150,7 +153,9 @@ router.get('/verify', (req, res) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = users.find(u => u.id === decoded.id);
+    
+    // Get user from database
+    const user = await User.findById(decoded.id).select('-password');
 
     if (!user) {
       return res.status(401).json({ 
@@ -163,10 +168,10 @@ router.get('/verify', (req, res) => {
       success: true,
       data: {
         user: {
-          id: user.id,
+          id: user._id,
           username: user.username,
           email: user.email,
-          role: user.role || 'user'
+          role: user.role
         }
       }
     });
