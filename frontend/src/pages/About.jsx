@@ -27,7 +27,7 @@ export default function About() {
           </div>
           <div className="bg-pink-100 rounded-2xl p-8 shadow-lg">
             <img 
-              src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=600&h=400&fit=crop" 
+              src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?w=600&h=400&fit=crop&q=80" 
               alt="Beautiful flower arrangement" 
               className="rounded-xl w-full h-80 object-cover shadow-md"
             />
@@ -41,7 +41,7 @@ export default function About() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
               <img 
-                src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600&h=400&fit=crop" 
+                src="https://images.unsplash.com/photo-1560119253-f0525a4e1cf1?w=600&h=400&fit=crop&q=80" 
                 alt="Flower shop story" 
                 className="rounded-xl w-full h-80 object-cover shadow-lg"
               />

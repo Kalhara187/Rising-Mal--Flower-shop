@@ -8,7 +8,7 @@ export default function Products() {
       title: "Red Rose Romance",
       description: "Classic red roses perfect for expressing deep love and passion",
       price: "$45",
-      image: "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?w=600&h=600&fit=crop&q=80",
       category: "Romantic"
     },
     {
@@ -16,7 +16,7 @@ export default function Products() {
       title: "Birthday Celebration",
       description: "Vibrant mixed flowers to brighten any birthday",
       price: "$35",
-      image: "https://images.unsplash.com/photo-1513003550745-9d42cf3880e0?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=600&h=600&fit=crop&q=80",
       category: "Birthday"
     },
     {
@@ -24,7 +24,7 @@ export default function Products() {
       title: "Wedding Elegance",
       description: "Sophisticated white and cream roses for your special day",
       price: "$120",
-      image: "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1591886960571-74d43a9d4166?w=600&h=600&fit=crop&q=80",
       category: "Wedding"
     },
     {
@@ -32,7 +32,7 @@ export default function Products() {
       title: "Sunflower Sunshine",
       description: "Bright sunflowers to bring warmth and joy",
       price: "$40",
-      image: "https://images.unsplash.com/photo-1597848212624-e83db54bee95?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1567258006714-81a0454d9c2f?w=600&h=600&fit=crop&q=80",
       category: "Cheerful"
     },
     {
@@ -40,7 +40,7 @@ export default function Products() {
       title: "Purple Dream",
       description: "Luxurious purple orchids and lilies",
       price: "$55",
-      image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1587814213271-80e3a82ed7a9?w=600&h=600&fit=crop&q=80",
       category: "Elegant"
     },
     {
@@ -48,7 +48,7 @@ export default function Products() {
       title: "Spring Garden",
       description: "Fresh seasonal blooms in a delightful arrangement",
       price: "$38",
-      image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1560119253-f0525a4e1cf1?w=600&h=600&fit=crop&q=80",
       category: "Seasonal"
     },
     {
@@ -56,7 +56,7 @@ export default function Products() {
       title: "Pink Passion",
       description: "Soft pink roses and peonies for tender moments",
       price: "$48",
-      image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=600&h=600&fit=crop&q=80",
       category: "Romantic"
     },
     {
@@ -64,7 +64,7 @@ export default function Products() {
       title: "Tropical Paradise",
       description: "Exotic tropical flowers for a unique statement",
       price: "$65",
-      image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600&h=600&fit=crop&q=80",
       category: "Exotic"
     },
     {
@@ -72,7 +72,7 @@ export default function Products() {
       title: "White Purity",
       description: "Elegant white lilies symbolizing purity and peace",
       price: "$50",
-      image: "https://images.unsplash.com/photo-1563210122-0cc2b9a7f711?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1563210122-0cc2b9a7f711?w=600&h=600&fit=crop&q=80",
       category: "Elegant"
     },
     {
@@ -80,7 +80,7 @@ export default function Products() {
       title: "Wildflower Wonder",
       description: "Charming wildflower mix for a natural touch",
       price: "$32",
-      image: "https://images.unsplash.com/photo-1487070183336-b863922373d4?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1487070183336-b863922373d4?w=600&h=600&fit=crop&q=80",
       category: "Rustic"
     },
     {
@@ -88,7 +88,7 @@ export default function Products() {
       title: "Corporate Chic",
       description: "Professional arrangement perfect for office spaces",
       price: "$85",
-      image: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=600&h=600&fit=crop&q=80",
       category: "Corporate"
     },
     {
@@ -96,8 +96,72 @@ export default function Products() {
       title: "Anniversary Bliss",
       description: "Romantic mixed bouquet celebrating enduring love",
       price: "$60",
-      image: "https://images.unsplash.com/photo-1535864104114-e4a94a4df58b?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1535864104114-e4a94a4df58b?w=600&h=600&fit=crop&q=80",
       category: "Anniversary"
+    },
+    {
+      id: 13,
+      title: "Lavender Dreams",
+      description: "Calming lavender blooms for peace and relaxation",
+      price: "$42",
+      image: "https://images.unsplash.com/photo-1566648757-1cdbb4fad814?w=600&h=600&fit=crop&q=80",
+      category: "Elegant"
+    },
+    {
+      id: 14,
+      title: "Peach Paradise",
+      description: "Soft peach roses and carnations for warmth",
+      price: "$47",
+      image: "https://images.unsplash.com/photo-1606041011872-596597976b25?w=600&h=600&fit=crop&q=80",
+      category: "Romantic"
+    },
+    {
+      id: 15,
+      title: "Rainbow Delight",
+      description: "Colorful mix of flowers for joyful celebrations",
+      price: "$58",
+      image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=600&h=600&fit=crop&q=80",
+      category: "Birthday"
+    },
+    {
+      id: 16,
+      title: "Orchid Elegance",
+      description: "Premium exotic orchids in stunning arrangement",
+      price: "$95",
+      image: "https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=600&h=600&fit=crop&q=80",
+      category: "Exotic"
+    },
+    {
+      id: 17,
+      title: "Autumn Harvest",
+      description: "Warm autumn colors with seasonal flowers",
+      price: "$44",
+      image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&h=600&fit=crop&q=80",
+      category: "Seasonal"
+    },
+    {
+      id: 18,
+      title: "Tulip Treasury",
+      description: "Fresh colorful tulips for spring celebrations",
+      price: "$52",
+      image: "https://images.unsplash.com/photo-1520763185298-1b434c919102?w=600&h=600&fit=crop&q=80",
+      category: "Cheerful"
+    },
+    {
+      id: 19,
+      title: "Hydrangea Heaven",
+      description: "Gorgeous hydrangeas in blue and purple tones",
+      price: "$68",
+      image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=600&h=600&fit=crop&q=80",
+      category: "Elegant"
+    },
+    {
+      id: 20,
+      title: "Garden Rose Luxury",
+      description: "Premium garden roses in stunning arrangement",
+      price: "$110",
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&q=80",
+      category: "Wedding"
     }
   ];
 

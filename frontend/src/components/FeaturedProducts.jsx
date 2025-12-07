@@ -9,7 +9,7 @@ export default function FeaturedProducts() {
       title: "Red Rose Romance",
       description: "Classic red roses perfect for expressing deep love",
       price: "$45",
-      image: "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?w=600&h=600&fit=crop&q=80",
       category: "Romantic"
     },
     {
@@ -17,7 +17,7 @@ export default function FeaturedProducts() {
       title: "Birthday Celebration",
       description: "Vibrant mixed flowers to brighten any birthday",
       price: "$35",
-      image: "https://images.unsplash.com/photo-1513003550745-9d42cf3880e0?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=600&h=600&fit=crop&q=80",
       category: "Birthday"
     },
     {
@@ -25,7 +25,7 @@ export default function FeaturedProducts() {
       title: "Wedding Elegance",
       description: "Sophisticated white roses for your special day",
       price: "$120",
-      image: "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1591886960571-74d43a9d4166?w=600&h=600&fit=crop&q=80",
       category: "Wedding"
     },
     {
@@ -33,7 +33,7 @@ export default function FeaturedProducts() {
       title: "Sunflower Sunshine",
       description: "Bright sunflowers to bring warmth and joy",
       price: "$40",
-      image: "https://images.unsplash.com/photo-1597848212624-e83db54bee95?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1567258006714-81a0454d9c2f?w=600&h=600&fit=crop&q=80",
       category: "Cheerful"
     },
     {
@@ -41,7 +41,7 @@ export default function FeaturedProducts() {
       title: "Purple Dream",
       description: "Luxurious purple orchids and lilies",
       price: "$55",
-      image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1587814213271-80e3a82ed7a9?w=600&h=600&fit=crop&q=80",
       category: "Elegant"
     },
     {
@@ -49,7 +49,7 @@ export default function FeaturedProducts() {
       title: "Spring Garden",
       description: "Fresh seasonal blooms in delightful arrangement",
       price: "$38",
-      image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1560119253-f0525a4e1cf1?w=600&h=600&fit=crop&q=80",
       category: "Seasonal"
     }
   ];
